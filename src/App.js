@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
+import Navbar from './components/Navbar';
 
 
 function App() {
-  const [licheng, setLicheng] = useState('');
 
   // Handle click event
   const handleClick = () => {
@@ -16,13 +16,13 @@ function App() {
         }
       })
       .then(data => {
-        setLicheng(data.message);  
+        console.log(data.message); 
       })
   };
 
   return (
     <>
-      
+      <Navbar />
     </>
   );
 }

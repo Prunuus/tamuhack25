@@ -1,22 +1,26 @@
 import React from 'react'
+import styles from '../styles/navbar.module.css'
 
 const Navbar = () => {
   return (
-    <div>
+    <div className={styles.navbar}>
         
         {/* logo and name */}
-        <div>
-            <div>
-                <img src="../../public/logo.png" alt="logo" />
-                <h1>
-                    Light.io
-                </h1>
-            </div>
+        <div className={styles.leftSide}>
+            <div className={styles.navImg}/>
+            <h1 className={styles.navText}>
+                Light.io
+            </h1>
         </div>
 
         {/* about and login */}
-        <div>
-
+        <div className={styles.rightSide}>
+            <a href='/' >
+                <button style={{color:'white'}} className={styles.buttons}>About</button>
+            </a>
+            <a href='/' className={styles.login}>
+                <button className={styles.buttons}>Login</button>
+            </a>
         </div>
     </div>
   )
