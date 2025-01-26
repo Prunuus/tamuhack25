@@ -26,7 +26,7 @@ def extract_project_name(generated_text):
         return random.choice(data)['title']
 
 #initialize everything needed
-path = "./tinyllama-lora-finetuned"
+path = "../tinyllama-lora-finetuned"
 tokenizer = AutoTokenizer.from_pretrained(path)
 model = AutoModelForCausalLM.from_pretrained(path, device_map="auto")
 generator = pipeline(
