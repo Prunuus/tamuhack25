@@ -90,3 +90,12 @@
     padding: 30px;
     border: none;
 }
+
+.background {
+    background: #fff;
+    height: 100vh;
+    width: 100vw;
+    background-size: 100% 100%;
+    background-position: 0px 0px, 0px 0px, 0px 0px, 0px 0px, 0px 0px;
+    background-image: radial-gradient(49% 81% at 45% 47%, #AEAB7D45 0%, #073AFF00 100%),radial-gradient(113% 91% at 17% -2%, #161034FF 1%, #FF000000 99%),radial-gradient(142% 91% at 83% 7%, #6D5DA6 1%, #6D5DA6 35%, #110E26 99%),radial-gradient(142% 91% at -6% 74%, #704F58FF 1%, #FF000000 99%),radial-gradient(142% 91% at 111% 84%, #FF7000FF 0%, #25203B 100%);
+}

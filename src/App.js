@@ -6,7 +6,7 @@ import Generate from './pages/generate';
 import Idea from './pages/idea';
 import Track from './pages/track';
 import LoginPage from './pages/Login.js';
-
+import Home from './pages/home.js'
 
 
 function App() {
@@ -33,6 +33,7 @@ function App() {
       {!['/generate', '/idea', '/track', '/signup'].includes(window.location.pathname) && <Navbar />}
 
         <Routes>
+            <Route path="/" element={<Home />} />
             <Route path="/generate" element={<Generate />} />
             <Route path="/idea" element={<Idea />} />
             <Route path="/track" element={<Track />} />
