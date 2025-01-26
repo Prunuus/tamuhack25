@@ -27,6 +27,7 @@ def extract_project_name(generated_text):
 
 #initialize everything needed
 path = 'TinyLlama/TinyLlama-1.1B-Chat-v1.0' #"../tinyllama-lora-finetuned"
+path = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"#"../tinyllama-lora-finetuned"
 tokenizer = AutoTokenizer.from_pretrained(path)
 model = AutoModelForCausalLM.from_pretrained(path, device_map="auto")
 generator = pipeline(
@@ -35,7 +36,7 @@ generator = pipeline(
     tokenizer=tokenizer,
 )
 
-@app.route('/ideas', methods=["POST","GET"])
+@app.route('/ideas', methodss=["POST","GET"])
 def ideas():
     try:
         data = request.get_json()
