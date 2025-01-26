@@ -1,6 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styles from '../styles/signup.module.css'
-import { Link } from 'react-router-dom'
 
 const Signup = () => {
     const [form, setForm] = useState({
@@ -9,6 +8,16 @@ const Signup = () => {
         password: '',
         confirmPassword: ''
     })
+
+    useEffect(() => {
+        console.log('clicked');
+        fetch('http://localhost:3000/ideas', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({"use_fine_tuned":"True"})
+    }).then(res => {res.json()}).then(data => console.log(data))}, [])
 
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
@@ -65,7 +74,7 @@ const Signup = () => {
         <div className={styles.background} >
             {/* logo */}
             <div className={styles.logo}></div>
-            <h1 style={{color:"white", margin:"0", marginBottom:"20px"}}>Sign up to Light.io</h1>
+            <h1 style={{color:"white"}}>Sign up to Light.io</h1>
             {/* sign up form with email, password, and confirm password 
                 */}
             <div className={styles.card}> 
@@ -92,12 +101,8 @@ const Signup = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder='Confirm Password'
                     required />
-                    <button className={styles.button} type="submit">Sign Up</button>
-                    <p style={{margin:0, color:"white"}}>Already have an account?  <Link to={'/Login'}>Log In</Link></p>
-                    <hr style={{width:'100%', color:'white', alignSelf:"flex-start"}}/>
-                    <button className={styles.button} type="submit">Sign Up with Google</button>
+                    <button className={styles.input} type="submit">Sign Up</button>
                 </form>
-
             </div>
             
         </div>  

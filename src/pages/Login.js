@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import styles from '../styles/signup.module.css'
+import styles from '../styles/login.module.css'
 import { Link } from 'react-router-dom'
 
 const Signup = () => {
@@ -65,7 +65,7 @@ const Signup = () => {
         <div className={styles.background} >
             {/* logo */}
             <div className={styles.logo}></div>
-            <h1 style={{color:"white", margin:"0", marginBottom:"20px"}}>Sign up to Light.io</h1>
+            <h1 style={{color:"white", margin:"0", marginBottom:"20px"}}>Login into to Light.io</h1>
             {/* sign up form with email, password, and confirm password 
                 */}
             <div className={styles.card}> 
@@ -85,17 +85,10 @@ const Signup = () => {
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder='Password'
                     required />
-                    <input 
-                    className={styles.input}
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder='Confirm Password'
-                    required />
-                    <button className={styles.button} type="submit">Sign Up</button>
-                    <p style={{margin:0, color:"white"}}>Already have an account?  <Link to={'/Login'}>Log In</Link></p>
+                    <button className={styles.button} type="submit">Login Up</button>
+                    <p style={{margin:0, color:"white"}}>Dont have an account?  <Link to={'/Signup'}>Sign Up</Link></p>
                     <hr style={{width:'100%', color:'white', alignSelf:"flex-start"}}/>
-                    <button className={styles.button} type="submit">Sign Up with Google</button>
+                    <button className={styles.button} type="submit">Login with Google</button>
                 </form>
 
             </div>
