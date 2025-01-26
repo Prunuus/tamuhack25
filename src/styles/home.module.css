@@ -16,18 +16,11 @@ Link {
     height: 1800px;
     background-image: url('../../public/image-removebg-preview.png');
     background-repeat: no-repeat;
-<<<<<<< HEAD
-    background-size: 30%;
-    position: relative;
-    background-position-x: 400px;
-    background-position-y: 900px;
-=======
     background-size: 75%;
     position: absolute;
     background-position-x: 50px;
-    background-position-y: 760px;
     
->>>>>>> 95f3f4207679608b3cd2e9a6e164cd8729e61bee
+    background-position-y: 760px;
     
 }
 
