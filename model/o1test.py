@@ -10,10 +10,16 @@ from transformers import (
 from peft import LoraConfig, get_peft_model  # Added for PEFT
 from huggingface_hub import login
 import torch
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
+
 
 OUTPUT_DIR = "tinyllama-lora-finetuned"
-token="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"
-login()
+
+token = os.getenv('token')
+login(token)
 
 # Configuration
 checkpoint = "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T"
