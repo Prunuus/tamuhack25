@@ -12,7 +12,8 @@ from huggingface_hub import login
 import torch
 
 OUTPUT_DIR = "tinyllama-lora-finetuned"
-login(token="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")
+token="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"
+login()
 
 # Configuration
 checkpoint = "TinyLlama/TinyLlama-1.1B-intermediate-step-1431k-3T"
