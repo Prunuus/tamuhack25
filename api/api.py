@@ -13,7 +13,7 @@ app = Flask(__name__)
 CORS(app, resources={r"/licheng": {"origins": "localhost:3000"}})
 
 
-with open("ideas.json", "r") as file:
+with open("../ideas.json", "r") as file:
      data = json.load(file)
 
 def extract_project_name(generated_text):
@@ -60,6 +60,7 @@ def generateResponse():
 
 
             project_name = extract_project_name(generated[0]["generated_text"])
+
             return jsonify({'idea': project_name})
             
         else:
