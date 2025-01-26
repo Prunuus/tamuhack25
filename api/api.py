@@ -26,14 +26,13 @@ def extract_project_name(generated_text):
         return random.choice(data)['title']
 
 #initialize everything needed
-path = "../tinyllama-lora-finetuned"
+path = 'TinyLlama/TinyLlama-1.1B-Chat-v1.0' #"../tinyllama-lora-finetuned"
 tokenizer = AutoTokenizer.from_pretrained(path)
 model = AutoModelForCausalLM.from_pretrained(path, device_map="auto")
 generator = pipeline(
     "text-generation",
     model=model,
     tokenizer=tokenizer,
-    device=0 if torch.cuda.is_available() else -1
 )
 
 @app.route('/ideas', methods=["POST","GET"])
