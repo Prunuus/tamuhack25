@@ -3,8 +3,8 @@
 * {
     margin: 0;
     font-family: "Poppins", serif;
-    font-weight: 600;
-    font-style: normal;
+    font-weight: 700;
+    font-style: bold;
 }
 
 Link {
@@ -12,14 +12,22 @@ Link {
 }
 
 .louie {
-    width: 1700px;
-    height: 2000px;
+    width: 1000px;
+    height: 1800px;
     background-image: url('../../public/image-removebg-preview.png');
     background-repeat: no-repeat;
+<<<<<<< HEAD
     background-size: 30%;
     position: relative;
     background-position-x: 400px;
     background-position-y: 900px;
+=======
+    background-size: 75%;
+    position: absolute;
+    background-position-x: 50px;
+    background-position-y: 760px;
+    
+>>>>>>> 95f3f4207679608b3cd2e9a6e164cd8729e61bee
     
 }
 
@@ -34,25 +42,27 @@ Link {
 
 .getStarted {
     display: flex;
+    font-size: 30px;
     flex-direction: column;
 }
 
 .slogan {
-    font-size: 80px;
+    font-size: 90px;
     color: white;
     text-align: right;
     padding-right: 120px;
     position:relative;
-    left: -110px;
-    bottom:-95px;
+    left: -150px;
+    bottom:-150px;
+    line-height: 100px;
 }
 
 .startbutton {
     position: relative;
-    bottom: -120px;
-    left: 200px;
+    bottom: -190px;
+    left: 220px;
     height: 70px;
-    width: 320px;
+    width: 250px;
     background-color: #9DD9D2;
     border-radius: 20px;
     color: #423939;
@@ -60,5 +70,6 @@ Link {
     justify-content: center;
     align-items: center;
     text-decoration: none;
-    font-size: 45px;
+    font-size: 30px;
+    
 }
