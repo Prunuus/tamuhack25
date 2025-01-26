@@ -37,13 +37,6 @@ generator = pipeline(
 
 @app.route('/ideas', methods=["POST","GET"])
 def ideas():
-    if request.method == "GET":
-        print("Button clicked")
-        return {'idea': 'Button not enabled'}
-    else:
-        print("hahahahahah")
-        return {'idea': 'hahahahaha'}
-    return {'idea': 'Button not enabled'}
     try:
         data = request.get_json()
         use_fine_tuned = data.get('use_fine_tuned', False)
@@ -62,8 +55,6 @@ def ideas():
                 top_k=50,
                 top_p=0.95
             )
-            
-
 
             project_name = extract_project_name(generated[0]["generated_text"])
 

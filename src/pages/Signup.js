@@ -1,18 +1,46 @@
 import React, { useState } from 'react'
 import styles from '../styles/signup.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { GoogleLogin } from '@react-oauth/google'
+import {jwtDecode} from 'jwt-decode'
 
 const Signup = () => {
+    const navigate = useNavigate();
+    const [error, setError] = useState('');
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [confirmPassword, setConfirmPassword] = useState('')
     const [form, setForm] = useState({
-        username: '',
         email: '',
         password: '',
         confirmPassword: ''
     })
 
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
-    const [confirmPassword, setConfirmPassword] = useState('')
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+
+        if (!validateForm()) {
+            return;
+        }
+        try {
+            const response = await fetch('/api/signup', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(form),
+            });
+      
+            if (!response.ok) {
+              const errorData = await response.json();
+              throw new Error(errorData.message || 'Signup failed');
+            }
+      
+            navigate('/login'); // Redirect to login after successful signup
+          } catch (err) {
+            setError(err.message);
+          }
+        };
 
     const validateForm = () => {
         {/*-------------------add username checks later------------------------------------------------*/}
@@ -31,36 +59,23 @@ const Signup = () => {
         return true
     }
 
-    const handleSubmit = (e) => {
-         e.preventDefault();
-         if (!validateForm()){
-            return 
-         }
+    const handleSuccess = (response) => {
+        console.log("Login Status:", response)
+        const decoded = jwtDecode(response.credential)
+        const userData = {
+            name: decoded.name,
+            email: decoded.email,
+            picture: decoded.picture
+        }
+        navigate('/generate', {state: {user:userData}})
 
-         try {
-            fetch('http://127.0.0.1:5000/Signup', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(form)
-            })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    throw new Error('Failed to fetch data');
-                }
-            })
-            .then(data => {
-                console.log(data.message); 
-            }
-            )
-         }
-         catch (error) {
-            console.error('Error:', error);
-    }
-}
+    };
+    const errorMessage = (error) => {
+        console.log(error);
+    };
+
+    
+
     return (
         <div className={styles.background} >
             {/* logo */}
@@ -69,7 +84,7 @@ const Signup = () => {
             {/* sign up form with email, password, and confirm password 
                 */}
             <div className={styles.card}> 
-                <form className={styles.form}>
+                <form onSubmit={handleSubmit} className={styles.form}>
                     <input
                     className={styles.input}
                         type="email"
@@ -79,23 +94,24 @@ const Signup = () => {
                         required
                     />
                     <input
-                    className={styles.input}
-                    type="password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder='Password'
-                    required />
+                        className={styles.input}
+                        type="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder='Password'
+                        required />
                     <input 
-                    className={styles.input}
-                    type="password"
-                    value={confirmPassword}
-                    onChange={(e) => setPassword(e.target.value)}
-                    placeholder='Confirm Password'
-                    required />
-                    <button className={styles.button} type="submit">Sign Up</button>
+                        className={styles.input}
+                        type="password"
+                        value={confirmPassword}
+                        onChange={(e) => setConfirmPassword(e.target.value)}
+                        placeholder='Confirm Password'
+                        required />
+                    <button onSuccess={handleSuccess} className={styles.button} type="submit">Sign Up</button>
                     <p style={{margin:0, color:"white"}}>Already have an account?  <Link to={'/Login'}>Log In</Link></p>
                     <hr style={{width:'100%', color:'white', alignSelf:"flex-start"}}/>
-                    <button className={styles.button} type="submit">Sign Up with Google</button>
+                    {/* <button className={styles.button} type="submit">Sign Up with Google</button> */}
+                    <GoogleLogin onSuccess={handleSuccess} onError={errorMessage} />
                 </form>
 
             </div>

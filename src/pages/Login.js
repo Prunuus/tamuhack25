@@ -1,8 +1,13 @@
 import React, { useState } from 'react'
 import styles from '../styles/login.module.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { GoogleLogin } from '@react-oauth/google'
+import {jwtDecode} from 'jwt-decode'
 
-const Signup = () => {
+const Login = () => {
+    const navigate = useNavigate();
+    
+ 
     const [form, setForm] = useState({
         username: '',
         email: '',
@@ -31,36 +36,16 @@ const Signup = () => {
         return true
     }
 
-    const handleSubmit = (e) => {
-         e.preventDefault();
-         if (!validateForm()){
-            return 
-         }
 
-         try {
-            fetch('http://127.0.0.1:5000/Signup', {
-                method: "POST",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(form)
-            })
-            .then(res => {
-                if (res.ok) {
-                    return res.json();
-                } else {
-                    throw new Error('Failed to fetch data');
-                }
-            })
-            .then(data => {
-                console.log(data.message); 
-            }
-            )
-         }
-         catch (error) {
-            console.error('Error:', error);
-    }
-}
+    const handleSuccess = (response) => {
+        console.log("Login Status:", response)
+        navigate('/generate')
+
+    };
+    const errorMessage = (error) => {
+        console.log(error);
+    };
+
     return (
         <div className={styles.background} >
             {/* logo */}
@@ -88,7 +73,7 @@ const Signup = () => {
                     <button className={styles.button} type="submit">Login Up</button>
                     <p style={{margin:0, color:"white"}}>Dont have an account?  <Link to={'/Signup'}>Sign Up</Link></p>
                     <hr style={{width:'100%', color:'white', alignSelf:"flex-start"}}/>
-                    <button className={styles.button} type="submit">Login with Google</button>
+                    <GoogleLogin onSuccess={handleSuccess} onError={errorMessage} />
                 </form>
 
             </div>
@@ -97,4 +82,4 @@ const Signup = () => {
     )
 }
 
-export default Signup
+export default Login

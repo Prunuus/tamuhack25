@@ -1,11 +1,12 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SignupPage from './pages/Signup.js';
 import Generate from './pages/generate';
 import Idea from './pages/idea';
 import Track from './pages/track';
 import LoginPage from './pages/Login.js';
+
 
 
 function App() {
@@ -30,15 +31,16 @@ function App() {
     <>
       {/* Excludes Navbar from these pages */}
       {!['/generate', '/idea', '/track', '/signup'].includes(window.location.pathname) && <Navbar />}
-      <Router>
+
         <Routes>
-        <Route path="/generate" element={<Generate />} />
-          <Route path="/idea" element={<Idea />} />
-          <Route path="/track" element={<Track />} />
-          <Route path="/Signup" element={<SignupPage />} />
-          <Route path="/Login" element={<LoginPage />} />
-        </Routes>
-      </Router>
+            <Route path="/generate" element={<Generate />} />
+            <Route path="/idea" element={<Idea />} />
+            <Route path="/track" element={<Track />} />
+            <Route path="/Signup" element={<SignupPage />} />
+            <Route path="/Login" element={<LoginPage />} />
+          </Routes>
+        
+        
     </>
   );
 }

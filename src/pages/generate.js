@@ -1,7 +1,7 @@
 'use client'
 import styles from '../styles/generate.module.css'
 import React, { handleEnter, handleChange, useState, button } from 'react';
-
+import { useLocation } from 'react-router-dom';
 const background = {
     background: "white",
     height: '100vh',
@@ -9,6 +9,8 @@ const background = {
 }
 
 export default function Generate() {
+    const location = useLocation();
+    const user = location.state?.user;
     return (
         <div style={background}>
             <div style={{
@@ -30,6 +32,8 @@ export default function Generate() {
                 {/* Main Content */}
                 <div className={styles.mainContainer}> 
                     <div className={styles.contentContainer}>
+                        {console.log(user)}
+                        <h1 style={{color:"white",textAlign:"center"}}>Welcome, {user?.name}!</h1>
                         {/* Logo */}
                         <div className={styles.titleContainer}>
                             <div className={styles.logo}/>
