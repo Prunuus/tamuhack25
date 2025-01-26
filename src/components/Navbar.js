@@ -1,7 +1,10 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 import styles from '../styles/navbar.module.css'
 
 const Navbar = () => {
+
+
   return (
     <div className={styles.navbar}>
         
@@ -14,16 +17,15 @@ const Navbar = () => {
         </div>
 
         {/* about and login */}
-        <div className={styles.rightSide}>
-            <a href='/' >
-                <button style={{color:'white'}} className={styles.buttons}>About</button>
-            </a>
-            <a href='/' className={styles.login}>
-                <button className={styles.buttons}>Login</button>
-            </a>
-        </div>
+       <div className={styles.rightSide}>
+        <Link to="/" className={styles.buttons}>
+            <button style={{color:'white'}} className={styles.buttons}>About</button>
+        </Link>
+        <Link to="/Signup" className={styles.login}>
+          <button className={styles.buttons}>Login</button>
+        </Link>
+      </div>
     </div>
-  )
-}
-
+  );
+};
 export default Navbar
