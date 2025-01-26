@@ -2,6 +2,7 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import SignupPage from './pages/Signup.js';
+import LoginPage from './pages/Login.js';
 
 
 
@@ -27,7 +28,8 @@ function App() {
     <Router>
       <Navbar />
       <Routes>
-        <Route path="/signup" element={<SignupPage />} />
+        <Route path="/Signup" element={<SignupPage />} />
+        <Route path="/Login" element={<LoginPage />} />
       </Routes>
     </Router>
   );

@@ -10,7 +10,7 @@ import json
 import random
 
 app = Flask(__name__)
-CORS(app, resources={r"/licheng": {"origins": "localhost:3000"}})
+CORS(app, resources={r"/ideas": {"origins": "http://localhost:3000"}})
 
 
 with open("../ideas.json", "r") as file:
@@ -36,8 +36,15 @@ generator = pipeline(
     device=0 if torch.cuda.is_available() else -1
 )
 
-@app.route('/ideas', method=["POST"])
-def generateResponse():
+@app.route('/ideas', methods=["POST","GET"])
+def ideas():
+    if request.method == "GET":
+        print("Button clicked")
+        return {'idea': 'Button not enabled'}
+    else:
+        print("hahahahahah")
+        return {'idea': 'hahahahaha'}
+    return {'idea': 'Button not enabled'}
     try:
         data = request.get_json()
         use_fine_tuned = data.get('use_fine_tuned', False)
@@ -70,8 +77,9 @@ def generateResponse():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
+@app.route('/', methods=["GET"])
+def home():
+    return "Welcome to the API"
 
 if __name__ == '__main__':
     app.run()

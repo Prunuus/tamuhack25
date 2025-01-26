@@ -29,7 +29,7 @@ body {
 .card {
     background-color: #342D54;
     width: 400px;
-    height: 350px;
+    height: 300px;
     display: flex;
     justify-content: center;
     align-items: center;
