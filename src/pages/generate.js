@@ -9,8 +9,35 @@ const background = {
 }
 
 export default function Generate() {
+    const [prompt, setPrompt] = useState('');
+    const [response, setResponse] = useState('');
     const location = useLocation();
     const user = location.state?.user;
+
+    const handleChange = (e) => {
+        setPrompt(e.target.value);
+    };
+
+    const handleEnter = async (e) => {
+        if (e.key === 'Enter') {
+            try {
+                const res = await fetch('http://localhost:5000/generate', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ prompt: prompt }),
+        });
+                
+                if (!res.ok) throw new Error('Request failed');
+                const data = await res.json();
+                setResponse(data.response);
+            } catch (error) {
+                console.error('Error:', error);
+                setResponse('Error generating response');
+            }
+        }
+    };
     return (
         <div style={background}>
             <div style={{

@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 from transformers import (
@@ -8,11 +9,24 @@ from transformers import (
 import torch
 import json
 import random
+from db import db
+# from routes.auth import auth_bp
+# import bcrypt
+from db import db, client
+from transformers import pipeline, AutoTokenizer, AutoModelForCausalLM
+
+
 
 app = Flask(__name__)
 CORS(app, resources={r"/ideas": {"origins": "http://localhost:3000"}})
 
 
+
+try:
+    client.admin.command('ping')
+    print("Pinged your deployment. You successfully connected to MongoDB!")
+except Exception as e:
+    print(e)
 with open("../ideas.json", "r") as file:
      data = json.load(file)
 
@@ -25,16 +39,57 @@ def extract_project_name(generated_text):
     else:
         return random.choice(data)['title']
 
+def create_app():
+    app = Flask(__name__)
+    CORS(app)  # Allow all origins for development
+    
+    try:
+        # Test database connection using the existing client from db.py
+        db.command('ping')
+        print("✅ Successfully connected to MongoDB!")
+        
+        # Create indexes (add this)
+        db.users.create_index([("email", 1)], unique=True)
+        
+    except Exception as e:
+        print(f"❌ MongoDB connection failed: {e}")
+        
+   
+    app.register_blueprint(auth_bp)
+    return app
+
+app = create_app()
 #initialize everything needed
-path = 'TinyLlama/TinyLlama-1.1B-Chat-v1.0' #"../tinyllama-lora-finetuned"
-tokenizer = AutoTokenizer.from_pretrained(path)
-model = AutoModelForCausalLM.from_pretrained(path, device_map="auto")
+# path = 'TinyLlama/TinyLlama-1.1B-Chat-v1.0' #"../tinyllama-lora-finetuned"
+model_name = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"
+tokenizer = AutoTokenizer.from_pretrained(model_name)
+model = AutoModelForCausalLM.from_pretrained(model_name)
 generator = pipeline(
     "text-generation",
     model=model,
     tokenizer=tokenizer,
 )
 
+
+
+def generate_response(prompt):
+    inputs = tokenizer(prompt, return_tensors="pt")
+    outputs = model.generate(**inputs, max_length=100)
+    return tokenizer.decode(outputs[0], skip_special_tokens=True)
+
+
+@app.route('/generate', methods=['POST'])
+def generate():
+    data = request.get_json()
+    prompt = data['prompt']
+    
+    try:
+        response = generate_response(prompt)  # Your model function
+        return jsonify({'response': response})
+    except Exception as e:
+        return jsonify({'error': str(e)}), 500
+    
+    
 @app.route('/ideas', methods=["POST","GET"])
 def ideas():
     try:
@@ -67,9 +122,21 @@ def ideas():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
+@ app.route('/users', methods=['GET'])
+def get_users():
+    try:
+        users = list(db.users.find())
+        return jsonify(users), 200
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 @app.route('/', methods=["GET"])
 def home():
     return "Welcome to the API"
+
+@app.teardown_appcontext
+def close_db_connection(exception=None):
+    db.client.close()
 
 if __name__ == '__main__':
     app.run()
