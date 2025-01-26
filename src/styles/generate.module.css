@@ -76,6 +76,7 @@
     align-content: center;
     flex-direction: row;
     margin-top: 20px;
+    width: 80vw;
 }
 
 .promptInput {
@@ -84,7 +85,7 @@
     border-radius: 15px;
     background: #342D54;
     color: #fff;
-    width: 1000px;
+    width: 100%;
     height: 60px;
     padding: 30px;
     border: none;

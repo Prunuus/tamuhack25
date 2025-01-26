@@ -10,7 +10,7 @@ import json
 import random
 
 app = Flask(__name__)
-CORS(app, resources={r"/licheng": {"origins": "localhost:3000"}})
+CORS(app, resources={r"/ideas": {"origins": "http://localhost:3000"}})
 
 
 with open("../ideas.json", "r") as file:
@@ -26,6 +26,7 @@ def extract_project_name(generated_text):
         return random.choice(data)['title']
 
 #initialize everything needed
+path = 'TinyLlama/TinyLlama-1.1B-Chat-v1.0' #"../tinyllama-lora-finetuned"
 path = "TinyLlama/TinyLlama-1.1B-Chat-v1.0"#"../tinyllama-lora-finetuned"
 tokenizer = AutoTokenizer.from_pretrained(path)
 model = AutoModelForCausalLM.from_pretrained(path, device_map="auto")
@@ -35,8 +36,8 @@ generator = pipeline(
     tokenizer=tokenizer,
 )
 
-@app.route('/ideas', methods=["POST"])
-def generateResponse():
+@app.route('/ideas', methodss=["POST","GET"])
+def ideas():
     try:
         data = request.get_json()
         use_fine_tuned = data.get('use_fine_tuned', False)
@@ -55,8 +56,6 @@ def generateResponse():
                 top_k=50,
                 top_p=0.95
             )
-            
-
 
             project_name = extract_project_name(generated[0]["generated_text"])
 
@@ -69,8 +68,9 @@ def generateResponse():
     except Exception as e:
         return jsonify({'error': str(e)}), 500
 
-
-
+@app.route('/', methods=["GET"])
+def home():
+    return "Welcome to the API"
 
 if __name__ == '__main__':
     app.run()
