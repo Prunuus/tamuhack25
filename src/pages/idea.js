@@ -1,6 +1,7 @@
 'use client'
 import styles from '../styles/idea.module.css'
 import React, { handleEnter, handleChange, useState, button } from 'react';
+import { Link } from 'react-router-dom';
 
 const background = {
     background: "white",
@@ -19,16 +20,16 @@ export default function Idea() {
                 }}>
                 {/* Navbar */}
                 <div className={styles.navbar} style={{zIndex: '1000'}}>
-                    <div className={styles.leftSide}>
+                    <Link to="/" className={`${styles.leftSide} ${styles.link}`}>
                         <div className={styles.navImg}/>
                         <h1 className={styles.navText}>
                             Light.io
                         </h1>
-                    </div>
+                    </Link>
                     <div className={styles.rightSide}>
-                        <div className={styles.buttonContainer}>
+                        <Link to="/track" className={styles.buttonContainer}>
                             <button id="track" className={styles.buttons}>Track</button>
-                        </div>
+                        </Link>
                     </div>
                 </div>
 

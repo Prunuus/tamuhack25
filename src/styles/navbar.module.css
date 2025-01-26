@@ -59,11 +59,12 @@
 
 .login {
     height: 30px;
-    width: 50%;
+    width: 30%;
     background-color: #F487B6;
     border-radius: 5px;
     color: black;
     display: flex;
     justify-content: center;
     align-items: center;
+    text-decoration: none;
 }

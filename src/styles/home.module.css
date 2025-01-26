@@ -7,15 +7,19 @@
     font-style: normal;
 }
 
+Link {
+    text-decoration: none;
+}
+
 .louie {
     width: 1700px;
     height: 2000px;
     background-image: url('../../public/image-removebg-preview.png');
     background-repeat: no-repeat;
-    background-size: 45%;
+    background-size: 30%;
+    position: relative;
     background-position-x: 400px;
-    background-position-y: 800px;
-    position: absolute;
+    background-position-y: 900px;
     
 }
 
