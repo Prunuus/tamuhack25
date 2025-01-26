@@ -18,9 +18,6 @@ const Navbar = () => {
 
         {/* about and login */}
        <div className={styles.rightSide}>
-        <Link to="/" className={styles.buttons}>
-            <button style={{color:'white'}} className={styles.buttons}>About</button>
-        </Link>
         <Link to="/Signup" className={styles.login}>
           <button className={styles.buttons}>Login</button>
         </Link>

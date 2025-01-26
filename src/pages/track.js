@@ -1,5 +1,6 @@
 'use client'
 import styles from '../styles/track.module.css'
+import { Link } from 'react-router-dom';
 
 const background = {
     background: "white",
@@ -17,16 +18,16 @@ export default function Track() {
                 display: "flex"
                 }}>
                 <div className={styles.navbar} style={{zIndex: '1000'}}>
-                    <div className={styles.leftSide}>
+                    <Link to="/" className={`${styles.leftSide} ${styles.link}`}>
                         <div className={styles.navImg}/>
                         <h1 className={styles.navText}>
                             Light.io
                         </h1>
-                    </div>
+                    </Link>
                     <div className={styles.rightSide}>
-                        <div className={styles.buttonContainer}>
+                        <Link to="/generate" className={styles.buttonContainer}>
                             <button id="generate" className={styles.buttons}>Generate</button>
-                        </div>
+                        </Link>
                     </div>
                 </div>
                 <div className={styles.mainContainer}>

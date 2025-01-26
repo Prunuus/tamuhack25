@@ -1,7 +1,7 @@
 'use client'
 import styles from '../styles/generate.module.css'
 import React, { handleEnter, handleChange, useState, button } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, Link } from 'react-router-dom';
 const background = {
     background: "white",
     height: '100vh',
@@ -48,9 +48,9 @@ export default function Generate() {
                 }}>
                 {/* Navbar */}
                 <div className={styles.navbar} style={{zIndex: '1000'}}>
-                    <div className={styles.buttonContainer}>
-                        <button id="track" className={styles.buttons}>Ideas</button>
-                    </div>
+                    <Link to="/idea" className={styles.buttonContainer}>
+                        <button id="ideas" className={styles.buttons}>Ideas</button>
+                    </Link>
                     <div className={styles.userContainer}>
                         
                     </div>
